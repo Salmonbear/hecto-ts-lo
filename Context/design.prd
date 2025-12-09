@@ -1,0 +1,11 @@
+we will recreate the exist account area for hecot to make it a) more modern b) clearly sign posted and c) easy to use
+in scope:
+- login (bubble auth first, then replace that)
+- all users will be buyers and seller enabled
+--- user > company > campaign
+--- campaign set up is a wizard asking 5 key questions
+--- user must be able to view inbound pitches, associated with a campaign. with view statuses etc
+--- message window should have a section to the roght ofr AI queries
+--- ability to refuse/seny a pitch. 
+- dashboard that highlights ober view of status
+--- 
