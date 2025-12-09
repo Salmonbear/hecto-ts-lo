@@ -1,11 +1,49 @@
-we will recreate the exist account area for hecot to make it a) more modern b) clearly sign posted and c) easy to use
-in scope:
-- login (bubble auth first, then replace that)
-- all users will be buyers and seller enabled
---- user > company > campaign
---- campaign set up is a wizard asking 5 key questions
---- user must be able to view inbound pitches, associated with a campaign. with view statuses etc
---- message window should have a section to the roght ofr AI queries
---- ability to refuse/seny a pitch. 
-- dashboard that highlights ober view of status
---- 
+new app area
+Structure:
+
+User (personal identity)
+→ belongs to Company (commercial identity)
+→ Company holds Subscription
+→ Company owns Campaigns
+→ Campaign owns Pitches
+→ Pitches spawn Negotiations / Messages
+
+This avoids every future permission conflict.
+
+Bare-bones IA for phase 1 (the app area as the spine):
+	1.	Dashboard (home screen)
+Functions:
+
+	•	Discover new campaigns (algorithmic + category filter)
+	•	See active negotiations
+	•	See drafts / in-progress campaigns
+	•	Quick actions: New Campaign, New Pitch
+
+This is the “command centre”.
+	2.	Campaigns
+Company-level list
+
+	•	Active
+	•	Draft
+	•	Closed
+Campaign detail must show inbound pitches, status, and controls.
+
+	3.	Pitches
+Your outgoing and incoming combined view, filtered by:
+
+	•	Sent
+	•	Received
+	•	Needs reply
+	•	Accepted
+	•	Declined
+
+	4.	Messages / Negotiations
+Threaded inbox with right-hand AI query panel.
+Each thread tied to a pitch.
+Declining closes thread.
+	5.	Profile and Company Settings
+User: name, email, photo.
+Company: logo, URL, vertical, subscription status, billing.
+
+
+
