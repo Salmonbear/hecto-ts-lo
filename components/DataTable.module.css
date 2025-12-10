@@ -1,0 +1,239 @@
+/* Desktop Table */
+.tableWrapper {
+  display: block;
+  overflow-x: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    display: none;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-tertiary);
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.table th:first-child {
+  border-radius: var(--radius-lg) 0 0 0;
+}
+
+.table th:last-child {
+  border-radius: 0 var(--radius-lg) 0 0;
+}
+
+.table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.row {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.row:hover {
+  background: var(--bg-hover);
+}
+
+.name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.company {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.companyLogo {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.companyInitial {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.type {
+  text-transform: capitalize;
+  color: var(--text-secondary);
+}
+
+.date {
+  color: var(--text-secondary);
+}
+
+.budget {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.badgeDraft {
+  background: var(--status-draft-bg);
+  color: var(--status-draft);
+}
+
+.badgeActive {
+  background: var(--status-active-bg);
+  color: var(--status-active);
+}
+
+.badgeWarning {
+  background: var(--status-warning-bg);
+  color: var(--status-warning);
+}
+
+.badgeSuccess {
+  background: var(--status-success-bg);
+  color: var(--status-success);
+}
+
+.badgeDanger {
+  background: var(--status-danger-bg);
+  color: var(--status-danger);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--text-tertiary);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.actionButton:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Mobile Card List */
+.cardList {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .cardList {
+    display: flex;
+  }
+}
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-medium);
+}
+
+.card:active {
+  background: var(--bg-hover);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cardMeta .name {
+  font-size: 15px;
+}
+
+.companyName {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px;
+}
+
+.cardFooter .type {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.cardFooter .budget {
+  margin-left: auto;
+}
+

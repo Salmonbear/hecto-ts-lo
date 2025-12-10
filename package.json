@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@plasmicapp/loader-nextjs": "^1.0.319",
+    "lucide-react": "^0.556.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18"
@@ -20,6 +21,6 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
-    "typescript": "^5"
+    "typescript": "5.9.3"
   }
 }

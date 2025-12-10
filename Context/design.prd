@@ -1,5 +1,7 @@
-new app area
-Structure:
+Hecto App - Product Requirements Document
+=========================================
+
+## Data Structure
 
 User (personal identity)
 → belongs to Company (commercial identity)
@@ -10,40 +12,120 @@ User (personal identity)
 
 This avoids every future permission conflict.
 
-Bare-bones IA for phase 1 (the app area as the spine):
-	1.	Dashboard (home screen)
-Functions:
+---
 
-	•	Discover new campaigns (algorithmic + category filter)
-	•	See active negotiations
-	•	See drafts / in-progress campaigns
-	•	Quick actions: New Campaign, New Pitch
+## Information Architecture (Phase 1)
 
-This is the “command centre”.
-	2.	Campaigns
-Company-level list
+### 1. Dashboard (Command Centre)
+**Summary Stats Row:**
+- Active Campaigns
+- Pending Pitches
+- Needs Reply
+- Completed Deals
 
-	•	Active
-	•	Draft
-	•	Closed
-Campaign detail must show inbound pitches, status, and controls.
+**Action Toolbar:**
+- New Campaign button
+- New Pitch button
+- Filter controls
+- Export
 
-	3.	Pitches
-Your outgoing and incoming combined view, filtered by:
+**Horizontal Tabs:**
+- All
+- My Campaigns
+- Incoming Pitches
+- Needs Attention
 
-	•	Sent
-	•	Received
-	•	Needs reply
-	•	Accepted
-	•	Declined
+**Main Content:**
+- Data table (desktop) / Card list (mobile)
+- Status badges: Draft (gray), Active (blue), Needs Reply (orange), Accepted (green), Declined (red)
 
-	4.	Messages / Negotiations
-Threaded inbox with right-hand AI query panel.
-Each thread tied to a pitch.
-Declining closes thread.
-	5.	Profile and Company Settings
-User: name, email, photo.
-Company: logo, URL, vertical, subscription status, billing.
+### 2. Campaigns
+Company-level list with filters:
+- Active
+- Draft
+- Closed
 
+**Campaign Detail View:**
+- Horizontal tabs: Overview, Pitches, Settings
+- Inbound pitches list with status and controls
 
+### 3. Pitches
+Combined outgoing/incoming view, filtered by:
+- Sent
+- Received
+- Needs Reply
+- Accepted
+- Declined
 
+### 4. Messages / Negotiations
+- Threaded inbox (left panel)
+- Active thread (center)
+- AI query panel (right on desktop, bottom sheet on mobile)
+- Each thread tied to a pitch
+- Declining closes thread
+
+### 5. Profile & Company Settings
+**User:** name, email, photo
+**Company:** logo, URL, vertical, subscription status, billing
+
+---
+
+## UI/UX Design System
+
+### Responsive Layout Strategy
+
+| Component | Desktop | Mobile |
+|-----------|---------|--------|
+| Navigation | Icon sidebar (expandable) | Hamburger + slide-out drawer |
+| Header | Search, notifications, avatar | Same, compact |
+| Stat cards | 4 across in row | 2x2 grid or horizontal scroll |
+| Action toolbar | Inline buttons | Sticky bar or FAB |
+| Tabs | Horizontal | Scrollable horizontal |
+| Data display | Table with columns | Card list (swipe actions) |
+| Messages | 3-column layout | List → Thread → AI sheet |
+
+### Design Inspiration
+- Clean icon sidebar (see: dashboard-insp-campaignsLike.webp)
+- Summary stat cards at top
+- Data table with status badges and bulk actions
+- Soft gray background, white cards
+- Modal overlays for create/edit flows
+
+### Key Principles
+- Mobile-optimised: respond on the go
+- Scan-friendly: stats and status visible at a glance
+- Action-oriented: quick access to New Campaign, New Pitch
+- Consistent status colors across all views
+
+---
+
+## Build Phases
+
+### Phase 1: App Shell
+- [ ] Icon sidebar with expand/collapse
+- [ ] Mobile hamburger + drawer menu
+- [ ] Top header (search, notifications, avatar)
+- [ ] Responsive main content container
+
+### Phase 2: Dashboard
+- [ ] Stat cards row (responsive grid)
+- [ ] Action toolbar
+- [ ] Horizontal filter tabs
+- [ ] Data table (desktop) / Card list (mobile)
+- [ ] Status badges
+
+### Phase 3: Campaign Detail
+- [ ] Horizontal tabs (Overview, Pitches, Settings)
+- [ ] Inbound pitches table/cards
+
+### Phase 4: Pitches View
+- [ ] Filtered list with status badges
+- [ ] Table/card responsive pattern
+
+### Phase 5: Messages
+- [ ] Threaded inbox layout
+- [ ] AI query panel (side/sheet)
+
+### Phase 6: Profile & Settings
+- [ ] User settings form
+- [ ] Company settings form

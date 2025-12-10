@@ -5,6 +5,9 @@ const nextConfig = {
   // https://github.com/adobe/react-spectrum/labels/strict%20mode
   reactStrictMode: false,
 
+  // Transpile lucide-react for proper ESM/CJS handling
+  transpilePackages: ['lucide-react'],
+
   async redirects() {
     return [
       {
