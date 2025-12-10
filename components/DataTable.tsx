@@ -3,22 +3,66 @@ import styles from './DataTable.module.css';
 
 export type StatusType = 'draft' | 'active' | 'warning' | 'success' | 'danger';
 
-export interface DataRow {
+export interface Campaign {
   id: string;
-  name: string;
-  company: string;
-  companyLogo?: string;
-  type: 'campaign' | 'pitch';
-  status: StatusType;
-  statusLabel: string;
-  date: string;
-  budget?: string;
+  title: string;
+  summary: string;
+  objective?: string;
+  audience?: {
+    target_audience: string;
+    categories: string[];
+    geography: string;
+  };
+  partnership_types_considered?: string[];
+  constraints?: {
+    budget: string | null;
+    timeline: string;
+    ideal_partner: string;
+    geography_constraints: string;
+  };
+  company: {
+    company_id: string;
+    name: string;
+    logo_url?: string;
+    one_liner: string;
+    website: string;
+  };
+  metrics: {
+    domain_rating: number;
+    reach: number;
+    match_score: number;
+  };
+  metadata: {
+    created_at: string;
+    updated_at: string;
+    status: string;
+  };
 }
 
 interface DataTableProps {
-  data: DataRow[];
-  onRowClick?: (row: DataRow) => void;
+  data: Campaign[];
+  onRowClick?: (row: Campaign) => void;
 }
+
+const getStatusType = (status: string): StatusType => {
+  switch (status.toLowerCase()) {
+    case 'active':
+      return 'active';
+    case 'draft':
+      return 'draft';
+    case 'closed':
+    case 'declined':
+      return 'danger';
+    case 'pending':
+    case 'needs reply':
+      return 'warning';
+    case 'accepted':
+    case 'completed':
+      return 'success';
+    default:
+      return 'draft';
+  }
+};
 
 const statusStyles: Record<StatusType, string> = {
   draft: 'badgeDraft',
@@ -36,12 +80,11 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Company</th>
-              <th>Type</th>
-              <th>Status</th>
-              <th>Date</th>
-              <th>Budget</th>
+              <th>Campaign</th>
+              <th>Summary</th>
+              <th>DR</th>
+              <th>Reach</th>
+              <th>Match</th>
               <th></th>
             </tr>
           </thead>
@@ -53,37 +96,27 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
                 className={styles.row}
               >
                 <td>
-                  <span className={styles.name}>{row.name}</span>
-                </td>
-                <td>
-                  <div className={styles.company}>
-                    {row.companyLogo ? (
-                      <img
-                        src={row.companyLogo}
-                        alt=""
-                        className={styles.companyLogo}
-                      />
-                    ) : (
-                      <div className={styles.companyInitial}>
-                        {row.company.charAt(0)}
-                      </div>
-                    )}
-                    <span>{row.company}</span>
+                  <div className={styles.campaignCell}>
+                    <div className={styles.categoryIcon}>
+                      <span>{row.audience?.categories?.[0]?.charAt(0) || '?'}</span>
+                    </div>
+                    <div className={styles.campaignInfo}>
+                      <span className={styles.campaignTitle}>{row.title}</span>
+                      <span className={styles.categoryLabel}>{row.audience?.categories?.[0] || 'Uncategorized'}</span>
+                    </div>
                   </div>
                 </td>
                 <td>
-                  <span className={styles.type}>{row.type}</span>
+                  <span className={styles.summary}>{row.summary}</span>
                 </td>
                 <td>
-                  <span className={`${styles.badge} ${styles[statusStyles[row.status]]}`}>
-                    {row.statusLabel}
-                  </span>
+                  <span className={styles.metricValue}>{row.metrics.domain_rating}</span>
                 </td>
                 <td>
-                  <span className={styles.date}>{row.date}</span>
+                  <span className={styles.metricValue}>{row.metrics.reach.toLocaleString()}</span>
                 </td>
                 <td>
-                  <span className={styles.budget}>{row.budget || '—'}</span>
+                  <span className={styles.matchScore}>{row.metrics.match_score}%</span>
                 </td>
                 <td>
                   <div className={styles.actions}>
@@ -122,31 +155,21 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
             onClick={() => onRowClick?.(row)}
           >
             <div className={styles.cardHeader}>
-              <div className={styles.company}>
-                {row.companyLogo ? (
-                  <img
-                    src={row.companyLogo}
-                    alt=""
-                    className={styles.companyLogo}
-                  />
-                ) : (
-                  <div className={styles.companyInitial}>
-                    {row.company.charAt(0)}
-                  </div>
-                )}
-                <div className={styles.cardMeta}>
-                  <span className={styles.name}>{row.name}</span>
-                  <span className={styles.companyName}>{row.company}</span>
+              <div className={styles.campaignCell}>
+                <div className={styles.categoryIcon}>
+                  <span>{row.audience?.categories?.[0]?.charAt(0) || '?'}</span>
+                </div>
+                <div className={styles.campaignInfo}>
+                  <span className={styles.campaignTitle}>{row.title}</span>
+                  <span className={styles.categoryLabel}>{row.audience?.categories?.[0] || 'Uncategorized'}</span>
                 </div>
               </div>
-              <span className={`${styles.badge} ${styles[statusStyles[row.status]]}`}>
-                {row.statusLabel}
-              </span>
+              <span className={styles.matchScore}>{row.metrics.match_score}%</span>
             </div>
-            <div className={styles.cardFooter}>
-              <span className={styles.type}>{row.type}</span>
-              <span className={styles.date}>{row.date}</span>
-              {row.budget && <span className={styles.budget}>{row.budget}</span>}
+            <p className={styles.cardSummary}>{row.summary}</p>
+            <div className={styles.cardMetrics}>
+              <span className={styles.cardMetric}>DR: {row.metrics.domain_rating}</span>
+              <span className={styles.cardMetric}>Reach: {row.metrics.reach.toLocaleString()}</span>
             </div>
           </div>
         ))}
@@ -154,4 +177,3 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
     </>
   );
 }
-

@@ -1,0 +1,437 @@
+# Onboarding Experience PRD
+
+## Overview
+
+New users land on the onboarding flow immediately after signup. The goal is to:
+1. Collect user info (who they are)
+2. Collect & verify business information (AI-powered data gathering)
+3. Define what support they need (universal framing)
+4. Review and launch their first opportunity listing
+
+Users who haven't completed onboarding see a blurred campaign table (3 visible rows) with a "Complete Setup" CTA.
+
+---
+
+## User Flow
+
+```
+[Signup] → [Onboarding] → [Dashboard (unlocked)]
+                ↓
+   ┌────────────────────────────────┐
+   │  Step 1: About You             │
+   │  Step 2: Your Business         │
+   │  Step 3: Support Needed        │
+   │  Step 4: Review & Launch       │
+   └────────────────────────────────┘
+```
+
+---
+
+## Step 1: About You
+
+**Purpose:** Understand who we're dealing with.
+
+### Fields
+| Field | Type | Required |
+|-------|------|----------|
+| Full name | Text | Yes |
+| Position/Role | Dropdown | Yes |
+| Email | Pre-filled from signup | Yes |
+
+### Position Options (Fixed List)
+- Founder / CEO
+- Marketing Lead
+- Growth / Partnerships
+- Content / Creator
+- Agency (on behalf of client)
+- Other
+
+### UI Notes
+- Simple, friendly intro: "Let's get you set up"
+- Progress indicator: Step 1 of 4
+- Single CTA: "Continue"
+
+---
+
+## Step 2: Your Business
+
+**Purpose:** Collect URLs, gather data via AI, user reviews and approves.
+
+### Part A: Input URLs
+
+| Field | Type | Required |
+|-------|------|----------|
+| Website URL | URL input | Yes |
+| LinkedIn | URL input | Optional |
+| Twitter/X | URL input | Optional |
+| Instagram | URL input | Optional |
+| Newsletter (if applicable) | URL input | Optional |
+
+**On submit:**
+- Show loading state: "Analyzing your business..."
+- AI gathers data from provided URLs
+
+### Part B: Review & Edit (Same Screen)
+
+After AI completes, show editable card:
+
+```
+┌─────────────────────────────────────────┐
+│  [Logo preview]          [Upload new]   │
+│                                         │
+│  Company Name                           │
+│  ┌─────────────────────────────────┐    │
+│  │ Acme Corp                       │    │
+│  └─────────────────────────────────┘    │
+│  ⚠️ Stored privately, never shown       │
+│                                         │
+│  One-liner                              │
+│  ┌─────────────────────────────────┐    │
+│  │ We help brands grow through...  │    │
+│  └─────────────────────────────────┘    │
+│                                         │
+│  Category                               │
+│  ┌─────────────────────────────────┐    │
+│  │ SaaS / Marketing            ▼   │    │
+│  └─────────────────────────────────┘    │
+│                                         │
+│  ─────────────────────────────────────  │
+│                                         │
+│  HOW OTHERS WILL SEE YOU                │
+│  ┌─────────────────────────────────┐    │
+│  │ "A marketing SaaS company       │    │
+│  │  helping brands scale their     │    │
+│  │  growth efforts."               │    │
+│  └─────────────────────────────────┘    │
+│  ✨ AI-generated • Edit if needed       │
+│                                         │
+│  DR: 45    Reach: ~120,000              │
+│                                         │
+└─────────────────────────────────────────┘
+
+         [Continue →]
+```
+
+### AI Data Gathering
+
+**What AI extracts:**
+- Company name (from meta, LinkedIn, site content)
+- Logo (favicon, OG image, or LinkedIn)
+- Description / one-liner
+- Industry/vertical signals → suggest category
+- Social follower counts → estimate reach
+
+**What requires API:**
+- Domain Rating → Ahrefs API
+
+**AI generates:**
+- Anonymized public summary (editable)
+
+### Editable Fields
+| Field | Editable | Notes |
+|-------|----------|-------|
+| Company name | Yes | Stored privately |
+| Logo | Yes | Can upload new |
+| One-liner | Yes | Private description |
+| Category | Yes | Dropdown, fixed list |
+| Anonymized summary | Yes | What others see |
+
+### Category Options (Fixed List)
+- SaaS / Software
+- Fintech / Crypto
+- E-commerce / DTC
+- Health & Wellness
+- Food & Beverage
+- Fashion / Beauty
+- Sustainability / Climate
+- Media / Publishing
+- Creator Economy
+- Agency / Services
+- Education
+- Travel / Hospitality
+- Other
+
+### Error States
+- Invalid URL → inline validation
+- AI fails to gather data → show empty form, user fills manually
+- Ahrefs API fails → show "DR: Pending" (update async)
+
+---
+
+## Step 3: Support Needed
+
+**Purpose:** Define what they're looking for. Universal framing — works for campaigns, partnerships, collaborations.
+
+### Section A: How do you want to grow?
+
+Prompt: "What type of partnership are you looking for?"
+
+| Field | Type | Required |
+|-------|------|----------|
+| Partnership type | Multi-select checkboxes | Yes (at least 1) |
+
+### Partnership Type Options (Fixed List)
+
+| Type | Description |
+|------|-------------|
+| **Sponsorship** | Pay for placement — ads, sponsored content, newsletter slots |
+| **Collaboration** | Co-create for mutual benefit — joint content, giveaways, cross-promo |
+| **Affiliate** | Performance-based — commission on sales, referrals, sign-ups |
+
+### Section B: Tell us more
+
+Prompt: "Describe what you're trying to achieve"
+
+| Field | Type | Required |
+|-------|------|----------|
+| Context | Textarea | Yes |
+| Timeline | Dropdown | Optional |
+| Budget | Dropdown | Optional |
+
+**Context placeholder:** "e.g., We're launching a new product in Q2 and want to partner with newsletters in the sustainability space to run a giveaway..."
+
+### Timeline Options
+- ASAP
+- This month
+- This quarter
+- Next quarter
+- No specific timeline
+
+### Budget Options
+- Not applicable
+- < $500
+- $500 - $2,000
+- $2,000 - $5,000
+- $5,000 - $10,000
+- $10,000+
+- Open to discussion
+
+### Section C: Who are you trying to reach?
+
+| Field | Type | Required |
+|-------|------|----------|
+| Target audience | Textarea | Yes |
+| Categories | Multi-select (same list as company) | Yes |
+| Geography | Multi-select | Yes |
+
+**Target audience placeholder:** "e.g., Health-conscious millennials interested in sustainable living"
+
+### Geography Options
+- Global
+- US
+- UK
+- EU
+- Canada
+- Australia
+- APAC
+- LATAM
+
+### AI Generation (On Submit)
+After they complete the form, AI generates:
+- **Title** — Compelling, specific, anonymized
+- **Summary** — Anonymized description of the opportunity
+
+User reviews these in Step 4.
+
+---
+
+## Step 4: Review & Launch
+
+**Purpose:** Final approval of anonymized listing.
+
+### Display
+
+Show the full listing preview as it will appear to others:
+
+```
+┌─────────────────────────────────────────┐
+│  [S]  SUSTAINABILITY                    │
+│       Anonymous opportunity             │
+│                                         │
+│  ┌─────────────────────────────────┐    │
+│  │ "Sustainable accessories brand  │    │
+│  │  seeking newsletter partners    │    │
+│  │  for Q2 giveaway campaign"      │    │
+│  └─────────────────────────────────┘    │
+│  ✨ AI-generated title • Edit           │
+│                                         │
+│  ┌─────────────────────────────────┐    │
+│  │ We want to grow our email list  │    │
+│  │ and increase awareness through  │    │
+│  │ cross-promotion with aligned    │    │
+│  │ brands and creators.            │    │
+│  └─────────────────────────────────┘    │
+│  ✨ AI-generated summary • Edit         │
+│                                         │
+│  ─────────────────────────────────────  │
+│                                         │
+│  PARTNERSHIP TYPE                       │
+│  [Sponsorship] [Collaboration]          │
+│                                         │
+│  TARGET AUDIENCE                        │
+│  Ethical shoppers, millennials,         │
+│  sustainability-focused consumers       │
+│                                         │
+│  GEOGRAPHY        TIMELINE              │
+│  UK & EU          This quarter          │
+│                                         │
+│  BUDGET                                 │
+│  Open to discussion                     │
+│                                         │
+│  ─────────────────────────────────────  │
+│                                         │
+│  YOUR METRICS                           │
+│  DR: 45    Reach: ~120,000              │
+│                                         │
+└─────────────────────────────────────────┘
+
+    [← Back]              [Launch →]
+```
+
+### Editable
+- Title (AI-generated, editable)
+- Summary (AI-generated, editable)
+- Can go back to edit other fields
+
+### CTAs
+- "Launch" → Save, mark onboarding complete, redirect to dashboard
+- "Back" → Return to Step 3
+
+---
+
+## Post-Onboarding State
+
+### Dashboard Changes
+- Full table unlocked (no blur)
+- User's listing appears in "My Campaigns" view
+- Can create additional opportunities from dashboard
+
+### Data Stored
+All company data stored in DB but only anonymized versions shown publicly:
+
+| Field | Stored | Public |
+|-------|--------|--------|
+| company.name | ✓ | ✗ |
+| company.website | ✓ | ✗ |
+| company.one_liner | ✓ | ✗ |
+| company.anonymized_summary | ✓ | ✓ |
+| listing.original_context | ✓ | ✗ |
+| listing.title | ✓ | ✓ (anonymized) |
+| listing.summary | ✓ | ✓ (anonymized) |
+
+---
+
+## Incomplete Onboarding State
+
+### Dashboard View
+- Hero banner visible
+- Table shows 3 real rows (visible)
+- Rows 4+ have blur overlay
+- Overlay message: "Complete setup to see all opportunities"
+- CTA: "Complete Setup" → redirect to onboarding (resume where left off)
+
+### Persistence
+- Save progress at each step
+- User can close and resume later
+- Show "Continue setup" prompt on return
+
+---
+
+## Technical Notes
+
+### Data Gathering Approach
+
+**AI-Powered (Primary):**
+- Feed URLs to LLM with web browsing capability
+- Or use Firecrawl / similar AI scraping service
+- Extract: name, logo, description, category signals, social metrics
+
+**API (For proprietary data):**
+- Ahrefs API → Domain Rating
+- Can run async if slow (show "Pending" then update)
+
+**Fallback:**
+- If AI fails, show empty form
+- User fills in manually
+- Still works, just less magic
+
+### AI Prompts Needed
+1. **Company analysis** — Extract structured data from URLs
+2. **Anonymized company summary** — Generate public-facing description
+3. **Listing title** — Generate compelling, anonymized title
+4. **Listing summary** — Generate anonymized opportunity description
+
+### Data Model
+
+```typescript
+interface User {
+  id: string;
+  email: string;
+  full_name: string;
+  position: string;
+  onboarding_completed: boolean;
+  onboarding_step: number; // 1-4
+}
+
+interface Company {
+  id: string;
+  user_id: string;
+  
+  // Private
+  name: string;
+  website: string;
+  one_liner: string;
+  
+  // Public
+  anonymized_summary: string;
+  category: string;
+  logo_url: string;
+  
+  // Metrics
+  domain_rating: number;
+  reach: number;
+  
+  // Sources
+  socials: {
+    linkedin?: string;
+    twitter?: string;
+    instagram?: string;
+    newsletter?: string;
+  };
+}
+
+interface Listing {
+  id: string;
+  company_id: string;
+  
+  // Private
+  original_context: string;
+  
+  // Public (anonymized)
+  title: string;
+  summary: string;
+  
+  // Structured
+  partnership_types: string[]; // 'sponsorship' | 'collaboration' | 'affiliate'
+  target_audience: string;
+  categories: string[];
+  geography: string[];
+  timeline: string;
+  budget: string;
+  
+  // Metadata
+  status: 'draft' | 'active' | 'closed';
+  created_at: string;
+  updated_at: string;
+}
+```
+
+---
+
+## Success Metrics
+
+- Onboarding completion rate (target: >70%)
+- Time to complete (target: <5 mins)
+- Drop-off by step
+- AI accuracy (% of generated content kept vs edited)
+- Match rate (listings matched to inbound interest)

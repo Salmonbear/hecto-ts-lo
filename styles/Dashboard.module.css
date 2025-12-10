@@ -1,36 +1,7 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-/* Stats Section */
-.statsSection {
-  /* Container for stats */
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-@media (max-width: 1024px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .statsGrid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
-
-/* Toolbar Section */
-.toolbarSection {
-  /* Container for toolbar */
+  gap: 20px;
 }
 
 /* Tabs Section */
@@ -42,4 +13,3 @@
 .dataSection {
   /* Container for table/cards */
 }
-
