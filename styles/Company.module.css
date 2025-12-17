@@ -1,0 +1,236 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.loading,
+.placeholder,
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.hint {
+  font-size: 14px;
+  color: #868e96;
+  margin-top: 8px;
+}
+
+/* Profile Section */
+.profileSection {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid #e9ecef;
+}
+
+.profileHeader {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #dee2e6;
+}
+
+.profileInfo h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.type {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #e7f5ff;
+  color: #1971c2;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.website {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.website:hover {
+  text-decoration: underline;
+}
+
+.description {
+  margin-top: 24px;
+}
+
+.description h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #495057;
+}
+
+.description p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.newsletterInfo {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #e9ecef;
+}
+
+.infoItem {
+  font-size: 14px;
+  color: #495057;
+}
+
+.infoItem strong {
+  color: #212529;
+  margin-right: 8px;
+}
+
+/* Stats Section */
+.statsSection {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid #e9ecef;
+}
+
+.statsSection h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: #212529;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.statCard svg {
+  color: #2563eb;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #6c757d;
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 600;
+  color: #212529;
+}
+
+/* Packages Section */
+.packagesSection {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 24px;
+  border: 1px solid #e9ecef;
+}
+
+.packagesSection h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 24px 0;
+  color: #212529;
+}
+
+.packagesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.packageCard {
+  padding: 24px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.packageCard h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #212529;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 16px;
+}
+
+.packageDesc {
+  font-size: 14px;
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Campaigns Section */
+.campaignsSection {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid #e9ecef;
+}
+
+.campaignsSection h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  color: #212529;
+}
+
+.campaignsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.campaignItem {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #495057;
+}

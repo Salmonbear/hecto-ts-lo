@@ -1,0 +1,275 @@
+// This is your Prisma schema file for Hecto v3 migration
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String?
+  lastName  String?
+  intention String? // e.g., "Buy & Sell"
+  mailOptIn Boolean  @default(false)
+  profilePic String?
+  stripeSellerId String?
+
+  // Migration tracking
+  migratedFromBubble Boolean  @default(false)
+  bubbleUserId       String?  @unique
+  passwordResetRequired Boolean @default(false)
+  migrationDate      DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  companies Company[]
+  campaigns Campaign[]  @relation("CampaignCreator")
+
+  // NextAuth relations
+  accounts Account[]
+  sessions Session[]
+
+  // Marketplace relations
+  pitchesSent Pitch[] @relation("PitchesSent")
+  messagesAsAuthor Message[] @relation("MessageAuthor")
+
+  @@map("users")
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  creatorEmail String? // Store for reference
+
+  name        String?
+  website     String?
+  logoUrl     String?
+
+  // Summaries (populated for both Brands and Newsletters)
+  longSummary  String?  @db.Text
+  shortSummary String?  @db.Text
+
+  tags        String[] // Array of tags
+  verified    Boolean  @default(false)
+
+  // Brand-specific fields
+  advertisingGoals String?
+  campaignBudget   String?
+
+  // Newsletter-specific fields
+  isNewsletter             Boolean @default(false)
+  newsletterCategory       String?
+  newsletterFreq           String?
+  newsletterStartingPrice  String?
+  newsletterSummaryLong    String?  @db.Text // Duplicate for Newsletter data
+  newsletterSummaryShort   String?  @db.Text // Duplicate for Newsletter data
+  newsletterProofUrl       String? // Latest proof URL from stats
+
+  // Social links
+  socialFbUrl      String?
+  socialTwitterUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  campaigns       Campaign[]
+  newsletterStats NewsletterStats[]
+  packages        Package[]
+  pitchesReceived Pitch[] @relation("PitchesReceived")
+
+  @@map("companies")
+}
+
+model Campaign {
+  id                     String   @id @default(cuid())
+  companyId              String
+  company                Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  creatorId              String?
+  creator                User?    @relation("CampaignCreator", fields: [creatorId], references: [id])
+
+  headline               String?
+  longDescription        String?  @db.Text
+  targetAudience         String?  @db.Text
+  acceptedPartnershipTypes String[] // Array of partnership types
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  pitches Pitch[]
+
+  @@map("campaigns")
+}
+
+model NewsletterStats {
+  id         String   @id @default(cuid())
+  companyId  String
+  company    Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  date       DateTime
+  subscribers Int?
+  openRate   Float? // 0.0 to 1.0
+  clickRate  Float? // 0.0 to 1.0
+
+  createdAt  DateTime @default(now())
+
+  @@map("newsletter_stats")
+}
+
+model Package {
+  id         String   @id @default(cuid())
+  companyId  String?
+  company    Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  // Package details
+  title              String?
+  shortSummary       String?
+  description        String?  @db.Text
+  price              String?
+  status             String? // e.g., "Live", "Draft"
+
+  // Character limits
+  bodyCharacterLimit String?
+  characterLimit     String?
+
+  // Requirements
+  imageRequired      Boolean? @default(false)
+  textRequired       Boolean? @default(false)
+
+  // Media
+  exampleImageUrl    String?
+
+  // Validity period
+  validFrom          DateTime?
+  validTo            DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("packages")
+}
+
+// ============================================
+// NextAuth Models (Authentication)
+// ============================================
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([email])
+  @@map("password_reset_tokens")
+}
+
+// ============================================
+// Marketplace Models (Pitches & Messages)
+// ============================================
+
+model Pitch {
+  id           String   @id @default(cuid())
+  campaignId   String
+  campaign     Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  // Who's pitching (Brand user)
+  senderId     String
+  sender       User     @relation("PitchesSent", fields: [senderId], references: [id], onDelete: Cascade)
+
+  // Newsletter being pitched to
+  newsletterId String
+  newsletter   Company  @relation("PitchesReceived", fields: [newsletterId], references: [id], onDelete: Cascade)
+
+  subject      String
+  message      String   @db.Text
+  status       String   @default("pending") // pending, under_review, accepted, declined, negotiating
+
+  // If accepted
+  agreedPrice  Float?
+  packageId    String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  messages     Message[]
+
+  @@index([campaignId])
+  @@index([senderId])
+  @@index([newsletterId])
+  @@index([status])
+  @@map("pitches")
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  pitchId     String
+  pitch       Pitch    @relation(fields: [pitchId], references: [id], onDelete: Cascade)
+
+  authorId    String
+  author      User     @relation("MessageAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  content     String   @db.Text
+  attachments String[] // Array of URLs
+
+  createdAt   DateTime @default(now())
+
+  @@index([pitchId])
+  @@index([authorId])
+  @@map("messages")
+}

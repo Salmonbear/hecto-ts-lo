@@ -72,6 +72,22 @@
   background: var(--bg-hover);
 }
 
+.row.blurredRow {
+  position: relative;
+  cursor: default;
+}
+
+.row.blurredRow td {
+  filter: blur(6px);
+  opacity: 0.5;
+  user-select: none;
+  pointer-events: none;
+}
+
+.row.blurredRow:hover {
+  background: transparent;
+}
+
 /* Campaign cell */
 .campaignCell {
   display: flex;
@@ -238,6 +254,19 @@
 
 .card:active {
   background: var(--bg-hover);
+}
+
+.card.blurredCard {
+  cursor: default;
+  filter: blur(6px);
+  opacity: 0.5;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card.blurredCard:hover {
+  box-shadow: none;
+  border-color: var(--border-light);
 }
 
 .cardHeader {

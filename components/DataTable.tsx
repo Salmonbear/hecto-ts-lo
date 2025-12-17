@@ -42,6 +42,7 @@ export interface Campaign {
 interface DataTableProps {
   data: Campaign[];
   onRowClick?: (row: Campaign) => void;
+  blurFromRow?: number; // 1-indexed, rows from this number onwards will be blurred
 }
 
 const getStatusType = (status: string): StatusType => {
@@ -72,7 +73,7 @@ const statusStyles: Record<StatusType, string> = {
   danger: 'badgeDanger',
 };
 
-export default function DataTable({ data, onRowClick }: DataTableProps) {
+export default function DataTable({ data, onRowClick, blurFromRow }: DataTableProps) {
   return (
     <>
       {/* Desktop Table */}
@@ -89,11 +90,13 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => (
+            {data.map((row, index) => {
+              const isBlurred = blurFromRow !== undefined && index + 1 >= blurFromRow;
+              return (
               <tr
                 key={row.id}
-                onClick={() => onRowClick?.(row)}
-                className={styles.row}
+                onClick={() => !isBlurred && onRowClick?.(row)}
+                className={`${styles.row} ${isBlurred ? styles.blurredRow : ''}`}
               >
                 <td>
                   <div className={styles.campaignCell}>
@@ -141,18 +144,21 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
                   </div>
                 </td>
               </tr>
-            ))}
+            );
+            })}
           </tbody>
         </table>
       </div>
 
       {/* Mobile Card List */}
       <div className={styles.cardList}>
-        {data.map((row) => (
+        {data.map((row, index) => {
+          const isBlurred = blurFromRow !== undefined && index + 1 >= blurFromRow;
+          return (
           <div
             key={row.id}
-            className={styles.card}
-            onClick={() => onRowClick?.(row)}
+            className={`${styles.card} ${isBlurred ? styles.blurredCard : ''}`}
+            onClick={() => !isBlurred && onRowClick?.(row)}
           >
             <div className={styles.cardHeader}>
               <div className={styles.campaignCell}>
@@ -172,7 +178,8 @@ export default function DataTable({ data, onRowClick }: DataTableProps) {
               <span className={styles.cardMetric}>Reach: {row.metrics.reach.toLocaleString()}</span>
             </div>
           </div>
-        ))}
+        );
+        })}
       </div>
     </>
   );

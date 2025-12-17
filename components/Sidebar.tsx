@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import {
-  LayoutDashboard,
-  Megaphone,
-  Send,
-  MessageSquare,
+  Compass,
+  Building2,
+  Handshake,
   User,
   ChevronLeft,
   ChevronRight,
@@ -20,10 +20,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={22} />, href: '/app' },
-  { id: 'campaigns', label: 'Campaigns', icon: <Megaphone size={22} />, href: '/app/campaigns' },
-  { id: 'pitches', label: 'Pitches', icon: <Send size={22} />, href: '/app/pitches' },
-  { id: 'messages', label: 'Messages', icon: <MessageSquare size={22} />, href: '/app/messages' },
+  { id: 'opportunities', label: 'Opportunities', icon: <Compass size={22} />, href: '/app' },
+  { id: 'company', label: 'My Company', icon: <Building2 size={22} />, href: '/app/company' },
+  { id: 'partnerships', label: 'My Partnerships', icon: <Handshake size={22} />, href: '/app/partnerships' },
   { id: 'profile', label: 'Profile', icon: <User size={22} />, href: '/app/profile' },
 ];
 
@@ -32,14 +31,22 @@ interface SidebarProps {
   onNavigate?: (id: string) => void;
 }
 
-export default function Sidebar({ activeItem = 'dashboard', onNavigate }: SidebarProps) {
+export default function Sidebar({ activeItem = 'opportunities', onNavigate }: SidebarProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleNavClick = (id: string) => {
     onNavigate?.(id);
     setIsMobileOpen(false);
   };
+
+  // Prevent hydration issues by ensuring mobile state is consistent
+  const showMobileOverlay = mounted && isMobileOpen;
 
   return (
     <>
@@ -53,7 +60,7 @@ export default function Sidebar({ activeItem = 'dashboard', onNavigate }: Sideba
       </button>
 
       {/* Mobile overlay */}
-      {isMobileOpen && (
+      {showMobileOverlay && (
         <div
           className={styles.overlay}
           onClick={() => setIsMobileOpen(false)}
@@ -91,18 +98,20 @@ export default function Sidebar({ activeItem = 'dashboard', onNavigate }: Sideba
           <ul className={styles.navList}>
             {navItems.map((item) => (
               <li key={item.id}>
-                <button
-                  className={`${styles.navItem} ${
-                    activeItem === item.id ? styles.active : ''
-                  }`}
-                  onClick={() => handleNavClick(item.id)}
-                  title={!isExpanded && !isMobileOpen ? item.label : undefined}
-                >
-                  <span className={styles.navIcon}>{item.icon}</span>
-                  {(isExpanded || isMobileOpen) && (
-                    <span className={styles.navLabel}>{item.label}</span>
-                  )}
-                </button>
+                <Link href={item.href} legacyBehavior>
+                  <a
+                    className={`${styles.navItem} ${
+                      activeItem === item.id ? styles.active : ''
+                    }`}
+                    onClick={() => handleNavClick(item.id)}
+                    title={!isExpanded && !isMobileOpen ? item.label : undefined}
+                  >
+                    <span className={styles.navIcon}>{item.icon}</span>
+                    {(isExpanded || isMobileOpen) && (
+                      <span className={styles.navLabel}>{item.label}</span>
+                    )}
+                  </a>
+                </Link>
               </li>
             ))}
           </ul>

@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import AppLayout from '../../components/AppLayout';
 import Hero from '../../components/Hero';
 import DataTable, { Campaign } from '../../components/DataTable';
 import CampaignPanel from '../../components/CampaignPanel';
+import OnboardingModal from '../../components/OnboardingModal';
+import UserSelector from '../../components/UserSelector';
 import styles from '../../styles/Dashboard.module.css';
 
 // Mock data using new campaign format
@@ -186,8 +189,47 @@ const mockData: Campaign[] = [
 
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+  // User selection and data fetching
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [useRealData, setUseRealData] = useState(false);
+  const [campaigns, setCampaigns] = useState<Campaign[]>(mockData);
+  const [loading, setLoading] = useState(false);
+
+  // Mock: In real app, this would come from user context/API
+  const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(true); // Set to true to show all data
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  // Fetch campaigns when user is selected and using real data
+  useEffect(() => {
+    if (!useRealData) {
+      setCampaigns(mockData);
+      return;
+    }
+
+    if (!selectedUserId) return;
+
+    setLoading(true);
+    fetch(`/api/campaigns?userId=${selectedUserId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCampaigns(data.length > 0 ? data : mockData);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching campaigns:', err);
+        setCampaigns(mockData);
+        setLoading(false);
+      });
+  }, [selectedUserId, useRealData]);
+
+  const handleOnboardingComplete = () => {
+    setHasCompletedOnboarding(true);
+    setShowOnboarding(false);
+  };
 
   const handleRowClick = (row: Campaign) => {
     setSelectedCampaign(row);
@@ -199,8 +241,7 @@ export default function DashboardPage() {
   };
 
   const handlePitch = (campaign: Campaign) => {
-    console.log('Send pitch to campaign:', campaign.id);
-    // Open pitch modal or navigate to pitch page
+    router.push(`/app/pitch?campaignId=${campaign.id}`);
   };
 
   const handleSave = (campaign: Campaign) => {
@@ -209,7 +250,15 @@ export default function DashboardPage() {
   };
 
   return (
-    <AppLayout title="Dashboard" activeNav="dashboard">
+    <AppLayout title="Opportunities" activeNav="opportunities">
+      {/* User Selector */}
+      <UserSelector
+        selectedUserId={selectedUserId}
+        onUserSelect={setSelectedUserId}
+        useRealData={useRealData}
+        onToggleData={setUseRealData}
+      />
+
       <div className={styles.dashboard}>
         {/* Hero */}
         <Hero
@@ -221,7 +270,25 @@ export default function DashboardPage() {
 
         {/* Data Table / Card List */}
         <section className={styles.dataSection}>
-          <DataTable data={mockData} onRowClick={handleRowClick} />
+          {loading ? (
+            <div className={styles.loading}>Loading campaigns...</div>
+          ) : (
+            <>
+              <DataTable
+                data={campaigns}
+                onRowClick={handleRowClick}
+              />
+
+              {campaigns.length === 0 && useRealData && (
+                <div className={styles.empty}>
+                  <p>No campaigns found for this user.</p>
+                  <p style={{ fontSize: '14px', color: '#6c757d', marginTop: '8px' }}>
+                    This user may not have any campaigns yet, or they may only have a company/newsletter profile.
+                  </p>
+                </div>
+              )}
+            </>
+          )}
         </section>
       </div>
 
@@ -232,6 +299,12 @@ export default function DashboardPage() {
         onClose={handleClosePanel}
         onPitch={handlePitch}
         onSave={handleSave}
+      />
+
+      {/* Onboarding Modal */}
+      <OnboardingModal
+        isOpen={showOnboarding}
+        onComplete={handleOnboardingComplete}
       />
     </AppLayout>
   );

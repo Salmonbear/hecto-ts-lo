@@ -22,12 +22,12 @@ export default function AppLayout({
   };
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} suppressHydrationWarning>
       <Sidebar activeItem={currentNav} onNavigate={handleNavigate} />
-      
+
       <div className={styles.main}>
         <Header title={title} />
-        
+
         <main className={styles.content}>
           {children}
         </main>

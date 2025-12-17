@@ -11,7 +11,7 @@
   --bg-secondary: #ffffff;
   --bg-tertiary: #f1f3f9;
   --bg-hover: #e8ebf2;
-  
+
   --text-primary: #1a1d26;
   --text-secondary: #5c6370;
   --text-tertiary: #8b919d;
@@ -59,29 +59,29 @@
   --transition-slow: 300ms ease;
 }
 
-/* Dark theme */
-@media (prefers-color-scheme: dark) {
+/* Dark theme - DISABLED (using light mode only) */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --bg-primary: #0f1117;
     --bg-secondary: #1a1d26;
     --bg-tertiary: #242836;
     --bg-hover: #2d3344;
-    
+
     --text-primary: #f4f5f7;
     --text-secondary: #a1a7b4;
     --text-tertiary: #6b7280;
     --text-inverse: #1a1d26;
-    
+
     --border-light: #2d3344;
     --border-medium: #3d4455;
-    
+
     --status-draft-bg: #1f2937;
     --status-active-bg: #1e3a5f;
     --status-warning-bg: #422006;
     --status-success-bg: #064e3b;
     --status-danger-bg: #450a0a;
   }
-}
+} */
 
 /* Reset */
 *, *::before, *::after {

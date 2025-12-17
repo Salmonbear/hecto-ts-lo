@@ -4,12 +4,61 @@
   gap: 20px;
 }
 
-/* Tabs Section */
-.tabsSection {
-  /* Container for tabs */
-}
-
 /* Data Section */
 .dataSection {
-  /* Container for table/cards */
+  position: relative;
+}
+
+/* CTA Overlay - positioned on blurred rows */
+.ctaOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.blurCta {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 32px;
+  background: var(--brand-primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+  pointer-events: auto;
+}
+
+.blurCta:hover {
+  background: var(--brand-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* Loading state */
+.loading {
+  padding: 60px 20px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+/* Empty state */
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #495057;
+}
+
+.empty p {
+  margin: 0;
+  font-size: 16px;
 }

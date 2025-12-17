@@ -1,0 +1,259 @@
+.pitchContainer {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 24px;
+  min-height: calc(100vh - 200px);
+}
+
+/* Column Shared Styles */
+.campaignColumn,
+.editorColumn,
+.tipsColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnHeader {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 20px;
+}
+
+.columnHeader h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Left Column - Campaign Details */
+.campaignColumn {
+  overflow-y: auto;
+}
+
+.campaignDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.companyHeader {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.companyLogo {
+  width: 48px;
+  height: 48px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.companyHeader h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.companyTagline {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.section h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.metricLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.metricValue {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Middle Column - Editor */
+.editorColumn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  gap: 16px;
+}
+
+.editorToolbar {
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 16px;
+}
+
+.subjectInput {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+}
+
+.subjectInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.pitchEditor {
+  flex: 1;
+  width: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: inherit;
+}
+
+.pitchEditor::placeholder {
+  color: var(--text-tertiary);
+}
+
+.editorFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.primaryButton {
+  background: var(--brand-primary);
+  color: white;
+}
+
+.primaryButton:hover {
+  background: var(--brand-primary-hover);
+}
+
+.secondaryButton {
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.secondaryButton:hover {
+  background: var(--bg-hover);
+}
+
+/* Right Column - Tips */
+.tipsColumn {
+  overflow-y: auto;
+}
+
+.tipsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tip h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.tip p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .pitchContainer {
+    grid-template-columns: 260px 1fr 260px;
+  }
+}
+
+@media (max-width: 968px) {
+  .pitchContainer {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .campaignColumn,
+  .editorColumn,
+  .tipsColumn {
+    width: 100%;
+  }
+
+  .campaignColumn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+
+  .campaignColumn .columnHeader {
+    margin-bottom: 16px;
+  }
+
+  .campaignDetails {
+    gap: 16px;
+  }
+
+  /* Hide tips on mobile to save space */
+  .tipsColumn {
+    display: none;
+  }
+
+  .editorColumn {
+    min-height: 400px;
+  }
+}

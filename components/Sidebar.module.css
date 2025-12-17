@@ -159,6 +159,8 @@
   border-radius: var(--radius-md);
   color: var(--text-secondary);
   transition: background var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .navItem:hover {
