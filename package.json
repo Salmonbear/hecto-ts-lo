@@ -9,35 +9,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "migrate:identify-dual-owners": "tsx scripts/identify-dual-owners.ts",
-    "migrate:users": "tsx scripts/migrate-users.ts",
-    "migrate:companies": "tsx scripts/migrate-companies.ts",
-    "migrate:campaigns": "tsx scripts/migrate-campaigns.ts",
-    "migrate:newsletter-stats": "tsx scripts/migrate-newsletter-stats.ts",
-    "migrate:packages": "tsx scripts/migrate-packages.ts",
-    "migrate:validate": "tsx scripts/validate-migration.ts",
-    "migrate:all": "npm run migrate:identify-dual-owners && npm run migrate:users && npm run migrate:companies && npm run migrate:campaigns && npm run migrate:newsletter-stats && npm run migrate:packages"
+    "lint": "next lint"
   },
   "dependencies": {
     "@plasmicapp/loader-nextjs": "^1.0.319",
-    "@prisma/client": "^6.19.1",
-    "bcryptjs": "^3.0.3",
-    "csv-parser": "^3.2.0",
-    "lucide-react": "^0.556.0",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
-    "prisma": "^6.19.1",
-    "tsx": "^4.21.0",
     "typescript": "5.9.3"
   }
 }
