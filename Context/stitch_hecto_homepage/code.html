@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hecto - Partnership Marketing Platform</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Permanent+Marker&amp;family=Gochi+Hand&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#FDFBF7", /* Warm off-white canvas */
+                        "background-dark": "#101622",
+                        "earth-sage": "#D8E6D6",
+                        "earth-clay": "#F2D5C4",
+                        "earth-mustard": "#F5EBC3",
+                        "ink": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "handwritten": ["Permanent Marker", "cursive"],
+                        "doodle": ["Gochi Hand", "cursive"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    boxShadow: {
+                        'wobbly': '3px 3px 0px 0px #1e293b',
+                        'wobbly-primary': '4px 4px 0px 0px #135bec',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for that hand-drawn feel */
+        .wobbly-box {
+            border: 2px solid #1e293b;
+            box-shadow: 4px 4px 0px 0px #1e293b;
+            transition: all 0.2s ease;
+        }
+        .wobbly-box:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #1e293b;
+        }
+        .rotate-random-1 { transform: rotate(-1deg); }
+        .rotate-random-2 { transform: rotate(1.5deg); }
+        .rotate-random-3 { transform: rotate(-2deg); }
+        
+        .scribble-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .scribble-underline::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='10' viewBox='0 0 100 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5C15 2 20 8 35 5C50 2 55 8 70 5C85 2 90 8 98 5' stroke='%23135bec' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: repeat-x;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-ink antialiased overflow-x-hidden">
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 w-full border-b-2 border-ink/10 bg-background-light/95 backdrop-blur-sm dark:bg-background-dark/95">
+<div class="px-6 md:px-12 lg:px-20 py-4 max-w-[1400px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="relative size-10">
+<!-- Custom SVG Icon with handwritten vibe -->
+<svg class="w-full h-full text-primary fill-current" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M20,50 Q30,20 50,20 T80,50 T50,80 T20,50" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="8"></path>
+<circle cx="50" cy="50" r="10"></circle>
+</svg>
+</div>
+<h1 class="font-handwritten text-2xl md:text-3xl text-ink tracking-wide transform -rotate-2">Hecto</h1>
+</div>
+<!-- Desktop Menu -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-bold hover:text-primary transition-colors" href="#">Browse Opportunities</a>
+<a class="text-sm font-bold hover:text-primary transition-colors" href="#">Success Stories</a>
+<a class="text-sm font-bold hover:text-primary transition-colors" href="#">Pricing</a>
+</div>
+<div class="flex items-center gap-4">
+<a class="hidden sm:block text-sm font-bold hover:text-primary transition-colors" href="#">Login</a>
+<button class="bg-primary text-white text-sm font-bold py-2.5 px-6 rounded-lg shadow-wobbly-primary hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_#135bec] transition-all border-2 border-ink">
+                    Find a Partner
+                </button>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative pt-16 pb-24 lg:pt-24 lg:pb-32 px-6 overflow-hidden">
+<!-- Background Decor -->
+<div class="absolute top-20 left-10 opacity-20 text-primary animate-pulse">
+<svg fill="none" height="60" stroke="currentColor" stroke-width="4" viewbox="0 0 100 100" width="60"><path d="M10,50 Q30,20 50,50 T90,50"></path></svg>
+</div>
+<div class="absolute bottom-10 right-10 opacity-20 text-earth-mustard hidden md:block">
+<svg fill="currentColor" height="120" viewbox="0 0 100 100" width="120"><circle cx="50" cy="50" r="40"></circle></svg>
+</div>
+<div class="max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8 text-center lg:text-left z-10">
+<div class="inline-block mx-auto lg:mx-0 bg-earth-mustard px-4 py-1 rounded-full border-2 border-ink rotate-random-2 w-fit">
+<span class="font-doodle font-bold text-ink">👋 Say goodbye to cold emails!</span>
+</div>
+<h1 class="font-handwritten text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-ink">
+                    Stop Cold Calling. <br/>
+<span class="text-primary scribbles relative inline-block">
+                        Start Collaborating.
+                        <svg class="absolute -bottom-2 left-0 w-full h-4 text-earth-clay -z-10" preserveaspectratio="none" viewbox="0 0 100 10"><path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="8"></path></svg>
+</span>
+</h1>
+<p class="text-lg md:text-xl text-ink/80 font-medium max-w-lg mx-auto lg:mx-0">
+                    Hecto connects humans behind brands for newsletters, giveaways, and co-marketing partnerships in a fun, friendly way.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+<button class="bg-primary text-white text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink shadow-wobbly-primary hover:-translate-y-1 transition-transform">
+                        Find a Partner
+                    </button>
+<button class="bg-white text-ink text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink shadow-wobbly hover:-translate-y-1 transition-transform">
+                        How it works
+                    </button>
+</div>
+<div class="flex items-center justify-center lg:justify-start gap-2 text-sm font-bold text-ink/60 mt-2">
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<span>No credit card required</span>
+<span class="mx-2">•</span>
+<span class="material-symbols-outlined text-green-600">check_circle</span>
+<span>100% human verified</span>
+</div>
+</div>
+<!-- Hero Image Collage -->
+<div class="relative hidden lg:block h-[500px]">
+<!-- Card 1 -->
+<div class="absolute top-10 left-10 w-64 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-random-3 z-20">
+<div class="h-32 bg-earth-sage rounded mb-3 bg-cover bg-center" data-alt="Two people shaking hands in a meeting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCeb8ElqqV_GRz2lDW1TpPJbw4jEsGJqBPGRD8_a388Fylaw4xl8k0dhB7JvG2Vwl4dpCV-RWsN9jJJrm7lv9DtJ8v2LpuhjMFtnFrtKsAWISAyseXmJGDyGg9_RchR8gPagd0pQ3sBeV9nOq0xyzZmDACLDv3v-w9sphcHh31ryKl2LbohoKO5zvVl4AvTPok69xKD2irK--dpNGpK-PLHwvZAY3XTKg6lnaa44P95GuZ42TI0pthhfqDV0iH1vrlydkAIDkJWvhk')"></div>
+<div class="font-bold text-lg mb-1">Newsletter Swap</div>
+<div class="text-sm text-gray-600">Looking for 5k+ subs in Tech</div>
+</div>
+<!-- Card 2 -->
+<div class="absolute top-40 right-10 w-64 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-random-2 z-10">
+<div class="h-32 bg-earth-clay rounded mb-3 bg-cover bg-center" data-alt="Team brainstorming session" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwj69VocGMB1LB3dAZkOD5TIOvbzFqSntOs8Cn1VBsyAzq4p9euNWrtQKSEHdWmlnYSq3m2udOeBEIpKMAe8kNPWcoDvMmIS6ZtgJ9WX6c3Bd7VVS7Ld16DBNvsMMtDj0upUedM7N-DsZrxEKK4rB-aJ69yM70hXGW40fhr4XCo33z9i_37HBzDCj8-JE0323Abpqp-ZMiO2tiuN0R4rzE1lHHyQ34FysC0UH-5_x0PbKU7J-6mbgCXJzULl7LaUfoeVxqSAa5Pto')"></div>
+<div class="font-bold text-lg mb-1">Podcast Guest</div>
+<div class="text-sm text-gray-600">SaaS Founder wanted!</div>
+</div>
+<!-- Decorative elements -->
+<svg class="absolute bottom-20 left-20 w-24 h-24 text-primary animate-bounce" fill="none" stroke="currentColor" stroke-width="3" viewbox="0 0 100 100">
+<path d="M50,10 L50,90 M10,50 L90,50 M20,20 L80,80 M20,80 L80,20"></path>
+</svg>
+</div>
+</div>
+</header>
+<!-- Logo Cloud -->
+<section class="py-12 bg-earth-clay/30 border-y-2 border-ink/5">
+<div class="max-w-[1200px] mx-auto px-6 text-center">
+<p class="font-doodle text-2xl text-ink mb-8 rotate-random-1">Trusted by friendly folks at...</p>
+<div class="flex flex-wrap justify-center items-center gap-12 opacity-80 grayscale mix-blend-multiply">
+<!-- Placeholders for logos -->
+<div class="font-display font-black text-2xl tracking-tighter">ACME Co.</div>
+<div class="font-display font-black text-2xl tracking-tighter">Globex</div>
+<div class="font-display font-black text-2xl tracking-tighter">Soylent Corp</div>
+<div class="font-display font-black text-2xl tracking-tighter">Initech</div>
+<div class="font-display font-black text-2xl tracking-tighter">Umbrella</div>
+</div>
+</div>
+</section>
+<!-- How it Works -->
+<section class="py-24 px-6 relative overflow-hidden">
+<div class="max-w-[1200px] mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-handwritten text-4xl md:text-5xl mb-4 text-ink">How it works</h2>
+<p class="text-lg text-ink/70 font-doodle rotate-random-1">Three simple steps to your next big partnership.</p>
+</div>
+<div class="grid md:grid-cols-3 gap-8 relative z-10">
+<!-- Step 1 -->
+<div class="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-1 hover:rotate-0 transition-transform">
+<div class="w-16 h-16 bg-earth-sage rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+<span class="material-symbols-outlined text-3xl">edit_note</span>
+</div>
+<h3 class="font-bold text-xl mb-2">1. Post an offer</h3>
+<p class="text-ink/70">Share what you have and what you want. It's like a dating profile, but for business.</p>
+</div>
+<!-- Arrow 1 (Desktop only) -->
+<div class="hidden md:block absolute top-1/2 left-[28%] w-24 -translate-y-1/2 z-0">
+<svg fill="none" stroke="#135bec" stroke-dasharray="5 5" stroke-width="3" viewbox="0 0 100 30">
+<path d="M0,15 Q50,0 100,15"></path>
+<path d="M90,10 L100,15 L90,20"></path>
+</svg>
+</div>
+<!-- Step 2 -->
+<div class="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center -rotate-random-2 hover:rotate-0 transition-transform z-10">
+<div class="w-16 h-16 bg-earth-mustard rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+<span class="material-symbols-outlined text-3xl">handshake</span>
+</div>
+<h3 class="font-bold text-xl mb-2">2. Get Matched</h3>
+<p class="text-ink/70">Our algorithm finds brands that align with your values and audience size.</p>
+</div>
+<!-- Arrow 2 (Desktop only) -->
+<div class="hidden md:block absolute top-1/2 right-[28%] w-24 -translate-y-1/2 z-0">
+<svg fill="none" stroke="#135bec" stroke-dasharray="5 5" stroke-width="3" viewbox="0 0 100 30">
+<path d="M0,15 Q50,30 100,15"></path>
+<path d="M90,10 L100,15 L90,20"></path>
+</svg>
+</div>
+<!-- Step 3 -->
+<div class="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-2 hover:rotate-0 transition-transform">
+<div class="w-16 h-16 bg-earth-clay rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+<span class="material-symbols-outlined text-3xl">rocket_launch</span>
+</div>
+<h3 class="font-bold text-xl mb-2">3. Launch Campaign</h3>
+<p class="text-ink/70">Collaborate, launch your co-marketing campaign, and watch your reach explode.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Opportunities Grid -->
+<section class="py-24 px-6 bg-earth-sage/30 border-y-2 border-ink/10">
+<div class="max-w-[1200px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div>
+<h2 class="font-handwritten text-4xl mb-2 text-ink">Fresh Opportunities</h2>
+<p class="font-doodle text-xl text-ink/70">Hot off the press! Grab them while you can.</p>
+</div>
+<a class="text-primary font-bold hover:underline flex items-center gap-1 group" href="#">
+                    View all opportunities 
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Opportunity Card 1 -->
+<div class="bg-white p-5 rounded-xl border-2 border-ink shadow-wobbly hover:-translate-y-1 transition-transform flex flex-col h-full">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-blue-100 bg-cover bg-center border border-ink" data-alt="Portrait of Sarah" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCW3IJSbxefUhX7PESAPsupD_hzxJY3pBVH5ALTb7aCq2fM0E0VYev2nVvFvnIcgHntgj24OlC9p5w47Iu1CIKon_Bf64rvAv8WqLLMuke1AAY2QoF5Vc81KIqBlIuelPxvjxYHKvgFaZuvmRCM61a_ARMWKKUpxmhGgAexH7DDDTa0JZZahQ3sPeNIG-lejm12ju0gwuW9upVVTMPkZ0fnYsM7EUKQI7PJBkDf4mK558HQkz1a-QgibtYqvHO9YlGluDT_szMCkHM')"></div>
+<div>
+<div class="font-bold text-sm">Sarah's Soaps</div>
+<div class="text-xs text-gray-500">Beauty &amp; Wellness</div>
+</div>
+</div>
+<h3 class="font-bold text-lg mb-2 leading-tight">Seeking organic skincare brands for holiday bundle</h3>
+<div class="mt-auto pt-4 flex gap-2">
+<span class="bg-earth-sage px-2 py-1 rounded border border-ink text-xs font-bold">Bundle</span>
+<span class="bg-earth-mustard px-2 py-1 rounded border border-ink text-xs font-bold">5k Reach</span>
+</div>
+</div>
+<!-- Opportunity Card 2 -->
+<div class="bg-white p-5 rounded-xl border-2 border-ink shadow-wobbly hover:-translate-y-1 transition-transform flex flex-col h-full">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-purple-100 bg-cover bg-center border border-ink" data-alt="Portrait of Mark" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0LTo-Y2yudyov0pYBhZoHMj-IcIea4L1NutK6rsVU8q8UC9wSrxSLaO6bv5xFvxxaVH4paIzRHklg8b0Wz2P74iLloaYzMtko0vVJlk2x-uRQh4FQc22WEHGvFtxLIQc1odflknzHPcdCm9yU1_-L4WJ8jK08byDBLLdz3qn5QOky3fBS04vs7FFJ6h2msMuFzUywhKe7QjiD6f6CNxQ6UZ3pswj4s4yoHyimD1ov_gqMaOKKQ-Rb7PRIhssAFUUZPoYrg6Ktz58')"></div>
+<div>
+<div class="font-bold text-sm">TechDaily</div>
+<div class="text-xs text-gray-500">SaaS &amp; B2B</div>
+</div>
+</div>
+<h3 class="font-bold text-lg mb-2 leading-tight">Looking for SaaS founders to interview on podcast</h3>
+<div class="mt-auto pt-4 flex gap-2">
+<span class="bg-earth-clay px-2 py-1 rounded border border-ink text-xs font-bold">Podcast</span>
+<span class="bg-earth-sage px-2 py-1 rounded border border-ink text-xs font-bold">12k Reach</span>
+</div>
+</div>
+<!-- Opportunity Card 3 -->
+<div class="bg-white p-5 rounded-xl border-2 border-ink shadow-wobbly hover:-translate-y-1 transition-transform flex flex-col h-full">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-green-100 bg-cover bg-center border border-ink" data-alt="Portrait of Emily" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHVX_jUMbLQ-wrAA0tnTc9uRBAfwYe828q079rGJaVjYPRB_qjcjhgQhleoFDWd--y1xKJZPyCVPp6zFRjf9lXHSjqehuODK68_yEB2tnDLMXLeVspZR77jqPGk_wi68HlnA4dH04nl-64AKH9ZLenkQ57J5Q4ijiDTZPZFOxVPzdawEFygZXA_mv0Wk_lSvsTt9v7-xOYmexXoNGIcUMct_4YbRERP43KpbesMRaaj9W9NhZBmP29UWJ4fiFUF8IhssLFE4P_2is')"></div>
+<div>
+<div class="font-bold text-sm">Yoga with Em</div>
+<div class="text-xs text-gray-500">Health &amp; Fitness</div>
+</div>
+</div>
+<h3 class="font-bold text-lg mb-2 leading-tight">Newsletter swap for January health kick</h3>
+<div class="mt-auto pt-4 flex gap-2">
+<span class="bg-earth-mustard px-2 py-1 rounded border border-ink text-xs font-bold">Newsletter</span>
+<span class="bg-earth-clay px-2 py-1 rounded border border-ink text-xs font-bold">8k Reach</span>
+</div>
+</div>
+<!-- Opportunity Card 4 -->
+<div class="bg-background-light p-5 rounded-xl border-2 border-dashed border-ink/30 flex flex-col h-full justify-center items-center text-center group cursor-pointer hover:border-primary hover:text-primary transition-colors">
+<div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-3 group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+<h3 class="font-bold text-lg">Post your own opportunity</h3>
+<p class="text-sm mt-1 opacity-70">It's free to start!</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonial Section -->
+<section class="py-24 px-6">
+<div class="max-w-[1000px] mx-auto">
+<div class="bg-earth-mustard rounded-3xl p-8 md:p-12 border-2 border-ink shadow-[8px_8px_0px_0px_#1e293b] relative">
+<!-- Quote Icon -->
+<div class="absolute -top-6 -left-4 bg-primary text-white p-3 rounded-lg border-2 border-ink shadow-wobbly rotate-random-3">
+<span class="material-symbols-outlined text-4xl">format_quote</span>
+</div>
+<div class="flex flex-col md:flex-row gap-10 items-center">
+<div class="shrink-0 relative">
+<div class="w-32 h-32 md:w-40 md:h-40 bg-white p-2 rounded-full border-2 border-ink shadow-wobbly rotate-random-2">
+<img class="w-full h-full object-cover rounded-full border border-ink/10" data-alt="Happy business woman smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHO4Y5pNWTOcx-O4DnanfYRITO0dSsbAIhFUJzKcXloKsWVMxtf8sDIHvlAM_BDi_VDc5VfrGiz8p6s26HjJhhwVWLeERhRCmRSQkw1uAAHncrusmqoAfTJQ3sLSwXdTpM0jdLwBsIbKLiqY0nUmEQecnAkbL4ln_cbO3XFItPMcUlhubkgzK0pugN-CgPLEKqgOqvdPWdlWAk5XJ7gAdmKIQKfJ4S-Sb_zmznPE0StT4eyEIim3i8igAjlNK1F2wA3Xtr3srXjS0"/>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-white px-3 py-1 rounded-full border-2 border-ink text-xs font-bold shadow-sm -rotate-3">
+                            Marketing Lead
+                        </div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<p class="text-xl md:text-2xl font-medium leading-relaxed mb-6 font-display">
+                            "Hecto is the most human B2B platform I've ever used. We found three perfect newsletter partners in a week, and the process felt like chatting with friends, not negotiating contracts."
+                        </p>
+<div>
+<div class="font-bold text-lg font-handwritten tracking-wide">Jessica Chen</div>
+<div class="text-sm text-ink/70 font-bold uppercase tracking-wider">Growth at Loomy</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-24 px-6 relative bg-primary/5">
+<div class="max-w-[800px] mx-auto text-center">
+<div class="inline-block mb-6 rotate-random-1">
+<span class="bg-earth-clay text-ink px-4 py-2 rounded-lg border-2 border-ink font-doodle font-bold text-lg shadow-sm">
+                    ✨ It's time to grow together
+                </span>
+</div>
+<h2 class="font-handwritten text-5xl md:text-6xl mb-6 text-ink">Find your perfect match</h2>
+<p class="text-xl text-ink/70 mb-10 font-medium">Search through thousands of active collaboration opportunities waiting for a brand just like yours.</p>
+<!-- Search Bar -->
+<div class="relative max-w-[500px] mx-auto group">
+<div class="absolute inset-0 bg-ink rounded-xl translate-x-2 translate-y-2 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
+<div class="relative bg-white border-2 border-ink rounded-xl flex items-center p-2">
+<span class="material-symbols-outlined ml-3 text-gray-400">search</span>
+<input class="w-full border-none focus:ring-0 text-lg placeholder:text-gray-400 font-medium text-ink bg-transparent" placeholder="Search for cool brands..." type="text"/>
+<button class="bg-primary text-white font-bold py-3 px-6 rounded-lg border-2 border-primary hover:bg-primary/90 transition-colors">
+                        Search
+                    </button>
+</div>
+</div>
+<!-- Footer Doodle -->
+<div class="mt-16 flex justify-center opacity-60">
+<svg fill="none" height="40" viewbox="0 0 200 40" width="200" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 20C40 10 60 30 90 20C120 10 140 30 170 20" stroke="#135bec" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+<path d="M160 15L170 20L160 25" stroke="#135bec" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
+</svg>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-background-dark text-white pt-20 pb-10 px-6 border-t-4 border-primary">
+<div class="max-w-[1200px] mx-auto grid md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<h2 class="font-handwritten text-4xl">Hecto</h2>
+</div>
+<p class="text-gray-400 max-w-sm text-lg">
+                    The partnership platform that puts humans first. Built with ❤️ and ☕️ for brands that care.
+                </p>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4 text-earth-mustard font-doodle tracking-widest">Platform</h3>
+<ul class="space-y-3">
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Browse Offers</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Post an Offer</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Success Stories</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Pricing</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4 text-earth-sage font-doodle tracking-widest">Company</h3>
+<ul class="space-y-3">
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">About Us</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Careers</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Blog</a></li>
+<li><a class="text-gray-400 hover:text-white transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="font-handwritten text-2xl text-gray-500">Let's grow together</div>
+<div class="text-gray-500 text-sm">© 2023 Hecto Inc. All rights reserved.</div>
+<div class="flex gap-4">
+<a class="text-gray-500 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-gray-500 hover:text-white transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -15,6 +15,21 @@ export default function StitchPage() {
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
         <style>{`
+          /* Bristol Font */
+          @font-face {
+            font-family: 'Bristol';
+            src: url('/fonts/Bristol.otf');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+          }
+
+          /* Handwritten font styling */
+          .font-handwritten {
+            font-family: 'Permanent Marker', cursive !important;
+            line-height: 1.2 !important;
+          }
+
           /* Custom styles for that hand-drawn feel */
           .wobbly-box {
             border: 2px solid #1e293b;
@@ -44,6 +59,43 @@ export default function StitchPage() {
             background-repeat: repeat-x;
             background-size: contain;
           }
+
+          /* Card drop animation */
+          @keyframes cardDrop {
+            0% {
+              transform: translate(-50%, -50%) translateY(-300px);
+              opacity: 0;
+            }
+            60% {
+              transform: translate(-50%, -50%) translateY(20px);
+            }
+            100% {
+              transform: translate(-50%, -50%) translateY(0);
+              opacity: 1;
+            }
+          }
+
+          @keyframes cardDropRotated {
+            0% {
+              transform: translateY(-300px);
+              opacity: 0;
+            }
+            60% {
+              transform: translateY(20px);
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+
+          .card-drop {
+            animation: cardDrop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          }
+
+          .card-drop-rotated {
+            animation: cardDropRotated 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          }
         `}</style>
       </Head>
 
@@ -69,7 +121,7 @@ export default function StitchPage() {
                   },
                   fontFamily: {
                     "display": ["Manrope", "sans-serif"],
-                    "handwritten": ["Permanent Marker", "cursive"],
+                    "handwritten": ["Bristol", "Permanent Marker", "cursive"],
                     "doodle": ["Gochi Hand", "cursive"],
                   },
                   borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
@@ -115,83 +167,133 @@ export default function StitchPage() {
         </nav>
 
         {/* Hero Section */}
-        <header className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 px-6 overflow-hidden">
+        <header className="relative pt-16 pb-24 lg:pt-24 lg:pb-32 px-6 overflow-hidden bg-[#FFF8F0]">
           {/* Background Decor */}
-          <div className="absolute top-20 left-10 opacity-20 text-primary animate-pulse">
-            <svg fill="none" height="60" stroke="currentColor" strokeWidth="4" viewBox="0 0 100 100" width="60">
+          <div className="absolute top-20 left-10 opacity-30 text-[#FFD7C2] animate-pulse">
+            <svg fill="none" height="80" stroke="currentColor" strokeWidth="6" viewBox="0 0 100 100" width="80">
               <path d="M10,50 Q30,20 50,50 T90,50"></path>
             </svg>
           </div>
-          <div className="absolute bottom-10 right-10 opacity-20 text-earth-mustard hidden md:block">
-            <svg fill="currentColor" height="120" viewBox="0 0 100 100" width="120">
+          <div className="absolute bottom-10 right-10 opacity-40 text-[#F5EBC3] hidden md:block">
+            <svg fill="currentColor" height="160" viewBox="0 0 100 100" width="160">
               <circle cx="50" cy="50" r="40"></circle>
+            </svg>
+          </div>
+          <div className="absolute top-1/2 left-1/4 opacity-20 text-[#D8E6D6] hidden lg:block">
+            <svg fill="currentColor" height="100" viewBox="0 0 100 100" width="100">
+              <circle cx="50" cy="50" r="30"></circle>
             </svg>
           </div>
 
           <div className="max-w-[1200px] mx-auto grid lg:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col gap-8 text-center lg:text-left z-10">
-              <div className="inline-block mx-auto lg:mx-0 bg-earth-mustard px-4 py-1 rounded-full border-2 border-ink rotate-random-2 w-fit">
-                <span className="font-doodle font-bold text-ink">👋 Say goodbye to cold emails!</span>
+              <div className="inline-block mx-auto lg:mx-0 bg-[#FFE5D9] px-4 py-1 rounded-full border-2 border-ink rotate-random-2 w-fit">
+                <span className="font-doodle font-bold text-ink">👋 Launching a product? Skip the cold DMs.</span>
               </div>
 
-              <h1 className="font-handwritten text-5xl md:text-6xl lg:text-7xl leading-[1.1] text-ink">
-                Stop Cold Calling. <br/>
+              <h1 className="font-handwritten text-4xl md:text-5xl leading-[1.1] text-ink">
+                Find Warm, Trusted Partners <br/>
                 <span className="text-primary scribbles relative inline-block">
-                  Start Collaborating.
-                  <svg className="absolute -bottom-2 left-0 w-full h-4 text-earth-clay -z-10" preserveAspectRatio="none" viewBox="0 0 100 10">
-                    <path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" strokeWidth="8"></path>
-                  </svg>
+                  for Your Next Product Launch.
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-ink/80 font-medium max-w-lg mx-auto lg:mx-0">
-                Hecto connects humans behind brands for newsletters, giveaways, and co-marketing partnerships in a fun, friendly way.
+              <p className="text-lg text-ink/80 font-medium max-w-lg mx-auto lg:mx-0">
+                We connect founders and marketers with other businesses. <br/>
+                Each one, ready to partner and promote on your next launch.<br/>
+                No cold outreach required.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <button className="bg-primary text-white text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink shadow-wobbly-primary hover:-translate-y-1 transition-transform">
+                <button className="text-white text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink hover:-translate-y-1 transition-transform" style={{backgroundColor: '#135bec', boxShadow: '4px 4px 0px 0px #135bec'}}>
                   Find a Partner
                 </button>
-                <button className="bg-white text-ink text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink shadow-wobbly hover:-translate-y-1 transition-transform">
+                <button className="bg-white text-ink text-lg font-bold py-4 px-8 rounded-xl border-2 border-ink hover:-translate-y-1 transition-transform" style={{boxShadow: '3px 3px 0px 0px #1e293b'}}>
                   How it works
                 </button>
-              </div>
-
-              <div className="flex items-center justify-center lg:justify-start gap-2 text-sm font-bold text-ink/60 mt-2">
-                <span className="material-symbols-outlined text-green-600">check_circle</span>
-                <span>No credit card required</span>
-                <span className="mx-2">•</span>
-                <span className="material-symbols-outlined text-green-600">check_circle</span>
-                <span>100% human verified</span>
               </div>
             </div>
 
             {/* Hero Image Collage */}
-            <div className="relative hidden lg:block h-[500px]">
-              {/* Card 1 */}
-              <div className="absolute top-10 left-10 w-64 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-random-3 z-20">
-                <div className="h-32 bg-earth-sage rounded mb-3 bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCeb8ElqqV_GRz2lDW1TpPJbw4jEsGJqBPGRD8_a388Fylaw4xl8k0dhB7JvG2Vwl4dpCV-RWsN9jJJrm7lv9DtJ8v2LpuhjMFtnFrtKsAWISAyseXmJGDyGg9_RchR8gPagd0pQ3sBeV9nOq0xyzZmDACLDv3v-w9sphcHh31ryKl2LbohoKO5zvVl4AvTPok69xKD2irK--dpNGpK-PLHwvZAY3XTKg6lnaa44P95GuZ42TI0pthhfqDV0iH1vrlydkAIDkJWvhk')"}}></div>
-                <div className="font-bold text-lg mb-1">Newsletter Swap</div>
-                <div className="text-sm text-gray-600">Looking for 5k+ subs in Tech</div>
+            <div className="relative hidden lg:block h-[550px]">
+              {/* Center Card - Launch Request (Main Card) */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 p-5 rounded-xl border-2 border-ink shadow-[6px_6px_0px_0px_#1e293b] z-30 card-drop" style={{backgroundColor: '#F0F8FF', animationDelay: '0s'}}>
+                <div className="text-ink">
+                  <div className="font-bold text-xl mb-3">🚀 Launching Soon</div>
+                  <div className="text-lg font-medium mb-2">New SaaS Tool for Teams</div>
+                  <div className="text-sm mb-3 opacity-80">Looking for: Email swap, bundle deals, or shoutouts</div>
+                  <div className="flex gap-2">
+                    <span className="bg-white/60 px-2 py-1 rounded text-xs font-bold border border-ink/20">B2B SaaS</span>
+                    <span className="bg-white/60 px-2 py-1 rounded text-xs font-bold border border-ink/20">5k+ reach</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Card 2 */}
-              <div className="absolute top-40 right-10 w-64 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-random-2 z-10">
-                <div className="h-32 bg-earth-clay rounded mb-3 bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwj69VocGMB1LB3dAZkOD5TIOvbzFqSntOs8Cn1VBsyAzq4p9euNWrtQKSEHdWmlnYSq3m2udOeBEIpKMAe8kNPWcoDvMmIS6ZtgJ9WX6c3Bd7VVS7Ld16DBNvsMMtDj0upUedM7N-DsZrxEKK4rB-aJ69yM70hXGW40fhr4XCo33z9i_37HBzDCj8-JE0323Abpqp-ZMiO2tiuN0R4rzE1lHHyQ34FysC0UH-5_x0PbKU7J-6mbgCXJzULl7LaUfoeVxqSAa5Pto')"}}></div>
-                <div className="font-bold text-lg mb-1">Podcast Guest</div>
-                <div className="text-sm text-gray-600">SaaS Founder wanted!</div>
+              {/* Partner Card 1 - Top Left */}
+              <div className="absolute top-5 left-5 w-56 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly -rotate-6 z-20 hover:z-40 transition-all hover:-translate-y-1 card-drop-rotated" style={{animationDelay: '0.2s'}}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-blue-100 border border-ink"></div>
+                  <div>
+                    <div className="font-bold text-sm">TechDaily Newsletter</div>
+                    <div className="text-xs text-gray-500">SaaS & Productivity</div>
+                  </div>
+                </div>
+                <div className="text-sm font-medium mb-2">15k tech subscribers</div>
+                <div className="flex gap-1">
+                  <span className="bg-[#E8F4E5] px-2 py-0.5 rounded text-xs font-bold border border-ink/20">Newsletter</span>
+                </div>
               </div>
 
-              {/* Decorative elements */}
-              <svg className="absolute bottom-20 left-20 w-24 h-24 text-primary animate-bounce" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 100 100">
-                <path d="M50,10 L50,90 M10,50 L90,50 M20,20 L80,80 M20,80 L80,20"></path>
-              </svg>
+              {/* Partner Card 2 - Top Right */}
+              <div className="absolute top-12 right-8 w-56 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-12 z-15 hover:z-40 transition-all hover:-translate-y-1 card-drop-rotated" style={{animationDelay: '0.3s'}}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-purple-100 border border-ink"></div>
+                  <div>
+                    <div className="font-bold text-sm">Growth Podcast</div>
+                    <div className="text-xs text-gray-500">Startups & Growth</div>
+                  </div>
+                </div>
+                <div className="text-sm font-medium mb-2">12k listeners/month</div>
+                <div className="flex gap-1">
+                  <span className="bg-[#FFD7C4] px-2 py-0.5 rounded text-xs font-bold border border-ink/20">Podcast</span>
+                </div>
+              </div>
+
+              {/* Partner Card 3 - Bottom Left */}
+              <div className="absolute bottom-16 left-12 w-56 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly rotate-3 z-10 hover:z-40 transition-all hover:-translate-y-1 card-drop-rotated" style={{animationDelay: '0.4s'}}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-green-100 border border-ink"></div>
+                  <div>
+                    <div className="font-bold text-sm">Startup Weekly</div>
+                    <div className="text-xs text-gray-500">Founders & VCs</div>
+                  </div>
+                </div>
+                <div className="text-sm font-medium mb-2">8k startup founders</div>
+                <div className="flex gap-1">
+                  <span className="bg-[#F5EBC3] px-2 py-0.5 rounded text-xs font-bold border border-ink/20">Newsletter</span>
+                </div>
+              </div>
+
+              {/* Partner Card 4 - Bottom Right */}
+              <div className="absolute bottom-8 right-16 w-56 bg-white p-4 rounded-lg border-2 border-ink shadow-wobbly -rotate-12 z-5 hover:z-40 transition-all hover:-translate-y-1 card-drop-rotated" style={{animationDelay: '0.5s'}}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 rounded-full bg-orange-100 border border-ink"></div>
+                  <div>
+                    <div className="font-bold text-sm">Product Hunt List</div>
+                    <div className="text-xs text-gray-500">Product Launches</div>
+                  </div>
+                </div>
+                <div className="text-sm font-medium mb-2">20k product lovers</div>
+                <div className="flex gap-1">
+                  <span className="bg-[#FFE4D1] px-2 py-0.5 rounded text-xs font-bold border border-ink/20">Community</span>
+                </div>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Logo Cloud */}
-        <section className="py-12 bg-earth-clay/30 border-y-2 border-ink/5">
+        <section className="py-12 bg-[#FFE8DC] border-y-2 border-ink/10">
           <div className="max-w-[1200px] mx-auto px-6 text-center">
             <p className="font-doodle text-2xl text-ink mb-8 rotate-random-1">Trusted by friendly folks at...</p>
             <div className="flex flex-wrap justify-center items-center gap-12 opacity-80 grayscale mix-blend-multiply">
@@ -205,7 +307,7 @@ export default function StitchPage() {
         </section>
 
         {/* How it Works */}
-        <section className="py-24 px-6 relative overflow-hidden">
+        <section className="py-24 px-6 relative overflow-hidden bg-gradient-to-b from-white to-background-light">
           <div className="max-w-[1200px] mx-auto">
             <div className="text-center mb-16">
               <h2 className="font-handwritten text-4xl md:text-5xl mb-4 text-ink">How it works</h2>
@@ -214,12 +316,12 @@ export default function StitchPage() {
 
             <div className="grid md:grid-cols-3 gap-8 relative z-10">
               {/* Step 1 */}
-              <div className="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-1 hover:rotate-0 transition-transform">
-                <div className="w-16 h-16 bg-earth-sage rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+              <div className="bg-[#FAFFFE] p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-1 hover:rotate-0 transition-transform">
+                <div className="w-16 h-16 bg-[#D8E6D6] rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
                   <span className="material-symbols-outlined text-3xl">edit_note</span>
                 </div>
-                <h3 className="font-bold text-xl mb-2">1. Post an offer</h3>
-                <p className="text-ink/70">Share what you have and what you want. It&apos;s like a dating profile, but for business.</p>
+                <h3 className="font-bold text-xl mb-2">1. Post Your Launch</h3>
+                <p className="text-ink/70">Share what you&apos;re launching and what kind of exposure you need—email swap, bundle, shoutout, collab, rev-share, or paid placement.</p>
               </div>
 
               {/* Arrow 1 (Desktop only) */}
@@ -231,12 +333,12 @@ export default function StitchPage() {
               </div>
 
               {/* Step 2 */}
-              <div className="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center -rotate-random-2 hover:rotate-0 transition-transform z-10">
-                <div className="w-16 h-16 bg-earth-mustard rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+              <div className="bg-[#FFFDF8] p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center -rotate-random-2 hover:rotate-0 transition-transform z-10">
+                <div className="w-16 h-16 bg-[#F5EBC3] rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
                   <span className="material-symbols-outlined text-3xl">handshake</span>
                 </div>
-                <h3 className="font-bold text-xl mb-2">2. Get Matched</h3>
-                <p className="text-ink/70">Our algorithm finds brands that align with your values and audience size.</p>
+                <h3 className="font-bold text-xl mb-2">2. Find Warm Partners</h3>
+                <p className="text-ink/70">Browse audience owners, creators, and newsletter lists looking for fresh products to promote to their engaged subscribers.</p>
               </div>
 
               {/* Arrow 2 (Desktop only) */}
@@ -248,24 +350,36 @@ export default function StitchPage() {
               </div>
 
               {/* Step 3 */}
-              <div className="bg-white p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-2 hover:rotate-0 transition-transform">
-                <div className="w-16 h-16 bg-earth-clay rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
+              <div className="bg-[#FFF9F5] p-8 rounded-2xl border-2 border-ink shadow-wobbly flex flex-col items-center text-center rotate-random-2 hover:rotate-0 transition-transform">
+                <div className="w-16 h-16 bg-[#F2D5C4] rounded-full flex items-center justify-center border-2 border-ink mb-6 text-ink">
                   <span className="material-symbols-outlined text-3xl">rocket_launch</span>
                 </div>
-                <h3 className="font-bold text-xl mb-2">3. Launch Campaign</h3>
-                <p className="text-ink/70">Collaborate, launch your co-marketing campaign, and watch your reach explode.</p>
+                <h3 className="font-bold text-xl mb-2">3. Launch Together</h3>
+                <p className="text-ink/70">Coordinate your launch with trusted partners. Get warm audience access without grinding cold DMs or paying for ads.</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Opportunities Grid */}
-        <section className="py-24 px-6 bg-earth-sage/30 border-y-2 border-ink/10">
-          <div className="max-w-[1200px] mx-auto">
+        <section className="py-24 px-6 bg-[#F5F9F3] border-y-2 border-ink/10 relative overflow-hidden">
+          {/* Decorative shapes */}
+          <div className="absolute top-10 right-10 opacity-20 text-[#D8E6D6]">
+            <svg fill="currentColor" height="120" viewBox="0 0 100 100" width="120">
+              <circle cx="50" cy="50" r="35"></circle>
+            </svg>
+          </div>
+          <div className="absolute bottom-10 left-10 opacity-15 text-[#FFE4D1]">
+            <svg fill="currentColor" height="140" viewBox="0 0 100 100" width="140">
+              <circle cx="50" cy="50" r="40"></circle>
+            </svg>
+          </div>
+
+          <div className="max-w-[1200px] mx-auto relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
               <div>
                 <h2 className="font-handwritten text-4xl mb-2 text-ink">Fresh Opportunities</h2>
-                <p className="font-doodle text-xl text-ink/70">Hot off the press! Grab them while you can.</p>
+                <p className="font-doodle text-xl text-ink/70">Audience owners looking for products to promote.</p>
               </div>
               <a className="text-primary font-bold hover:underline flex items-center gap-1 group" href="#">
                 View all opportunities
@@ -285,8 +399,8 @@ export default function StitchPage() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 leading-tight">Seeking organic skincare brands for holiday bundle</h3>
                 <div className="mt-auto pt-4 flex gap-2">
-                  <span className="bg-earth-sage px-2 py-1 rounded border border-ink text-xs font-bold">Bundle</span>
-                  <span className="bg-earth-mustard px-2 py-1 rounded border border-ink text-xs font-bold">5k Reach</span>
+                  <span className="bg-[#D8E6D6] px-2 py-1 rounded border border-ink text-xs font-bold">Bundle</span>
+                  <span className="bg-[#FFE4D1] px-2 py-1 rounded border border-ink text-xs font-bold">5k Reach</span>
                 </div>
               </div>
 
@@ -301,8 +415,8 @@ export default function StitchPage() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 leading-tight">Looking for SaaS founders to interview on podcast</h3>
                 <div className="mt-auto pt-4 flex gap-2">
-                  <span className="bg-earth-clay px-2 py-1 rounded border border-ink text-xs font-bold">Podcast</span>
-                  <span className="bg-earth-sage px-2 py-1 rounded border border-ink text-xs font-bold">12k Reach</span>
+                  <span className="bg-[#FFD7C4] px-2 py-1 rounded border border-ink text-xs font-bold">Podcast</span>
+                  <span className="bg-[#E8F4E5] px-2 py-1 rounded border border-ink text-xs font-bold">12k Reach</span>
                 </div>
               </div>
 
@@ -317,8 +431,8 @@ export default function StitchPage() {
                 </div>
                 <h3 className="font-bold text-lg mb-2 leading-tight">Newsletter swap for January health kick</h3>
                 <div className="mt-auto pt-4 flex gap-2">
-                  <span className="bg-earth-mustard px-2 py-1 rounded border border-ink text-xs font-bold">Newsletter</span>
-                  <span className="bg-earth-clay px-2 py-1 rounded border border-ink text-xs font-bold">8k Reach</span>
+                  <span className="bg-[#F5EBC3] px-2 py-1 rounded border border-ink text-xs font-bold">Newsletter</span>
+                  <span className="bg-[#FFD9C2] px-2 py-1 rounded border border-ink text-xs font-bold">8k Reach</span>
                 </div>
               </div>
 
@@ -335,7 +449,7 @@ export default function StitchPage() {
         </section>
 
         {/* Testimonial Section */}
-        <section className="py-24 px-6">
+        <section className="py-24 px-6 bg-[#F0F8FF]">
           <div className="max-w-[1000px] mx-auto">
             <div className="bg-earth-mustard rounded-3xl p-8 md:p-12 border-2 border-ink shadow-[8px_8px_0px_0px_#1e293b] relative">
               {/* Quote Icon */}
@@ -355,7 +469,7 @@ export default function StitchPage() {
 
                 <div className="flex-1 text-center md:text-left">
                   <p className="text-xl md:text-2xl font-medium leading-relaxed mb-6 font-display">
-                    &quot;Hecto is the most human B2B platform I&apos;ve ever used. We found three perfect newsletter partners in a week, and the process felt like chatting with friends, not negotiating contracts.&quot;
+                    &quot;Hecto gave us warm audience access for our SaaS launch. Three newsletter partners featured us to their subscribers—we got 300+ signups in week one without spending a dollar on ads or cold outreach.&quot;
                   </p>
                   <div>
                     <div className="font-bold text-lg font-handwritten tracking-wide">Jessica Chen</div>
@@ -368,23 +482,23 @@ export default function StitchPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-6 relative bg-primary/5">
+        <section className="py-24 px-6 relative bg-gradient-to-b from-[#E8F4FF] to-[#F0F8FF]">
           <div className="max-w-[800px] mx-auto text-center">
             <div className="inline-block mb-6 rotate-random-1">
-              <span className="bg-earth-clay text-ink px-4 py-2 rounded-lg border-2 border-ink font-doodle font-bold text-lg shadow-sm">
-                ✨ It&apos;s time to grow together
+              <span className="bg-[#FFE5D9] text-ink px-4 py-2 rounded-lg border-2 border-ink font-doodle font-bold text-lg shadow-sm">
+                🚀 Ready to launch?
               </span>
             </div>
 
-            <h2 className="font-handwritten text-5xl md:text-6xl mb-6 text-ink">Find your perfect match</h2>
-            <p className="text-xl text-ink/70 mb-10 font-medium">Search through thousands of active collaboration opportunities waiting for a brand just like yours.</p>
+            <h2 className="font-handwritten text-5xl md:text-6xl mb-6 text-ink">Find Trusted Partners to Supercharge Your Launch</h2>
+            <p className="text-xl text-ink/70 mb-10 font-medium">Browse audience owners ready to promote fresh products. Launch with warm audience access—no cold DMs, no ad budget required.</p>
 
             {/* Search Bar */}
             <div className="relative max-w-[500px] mx-auto group">
               <div className="absolute inset-0 bg-ink rounded-xl translate-x-2 translate-y-2 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
               <div className="relative bg-white border-2 border-ink rounded-xl flex items-center p-2">
                 <span className="material-symbols-outlined ml-3 text-gray-400">search</span>
-                <input className="w-full border-none focus:ring-0 text-lg placeholder:text-gray-400 font-medium text-ink bg-transparent" placeholder="Search for cool brands..." type="text" />
+                <input className="w-full border-none focus:ring-0 text-lg placeholder:text-gray-400 font-medium text-ink bg-transparent" placeholder="Search for launch partners..." type="text" />
                 <button className="bg-primary text-white font-bold py-3 px-6 rounded-lg border-2 border-primary hover:bg-primary/90 transition-colors">
                   Search
                 </button>
