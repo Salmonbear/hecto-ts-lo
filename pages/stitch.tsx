@@ -192,9 +192,9 @@ export default function StitchPage() {
               </div>
 
               <h1 className="font-handwritten text-4xl md:text-5xl leading-[1.1] text-ink">
-                Find Warm, Trusted Partners <br/>
+              Find live product distribution options <br/>
                 <span className="text-primary scribbles relative inline-block">
-                  for Your Next Product Launch.
+                — without cold DMs.
                 </span>
               </h1>
 
