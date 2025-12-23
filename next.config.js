@@ -10,11 +10,12 @@ const nextConfig = {
 
   async redirects() {
     return [
-      {
-        source: '/search/:path*',
-        destination: 'https://app.hecto.io/search/:path*',
-        permanent: false, // This sets the status code to 302 (temporary redirect)
-      },
+      // Commented out to allow local /search and /newsletter pages
+      // {
+      //   source: '/search/:path*',
+      //   destination: 'https://app.hecto.io/search/:path*',
+      //   permanent: false,
+      // },
       {
         source: '/creators',
         destination: 'https://www.hecto.io/newsletter-creators',
@@ -35,11 +36,12 @@ const nextConfig = {
         destination: 'https://app.hecto.io/newsletters/:path*',
         permanent: false,
       },
-      {
-        source: '/newsletter/:path*',
-        destination: 'https://app.hecto.io/newsletter/:path*',
-        permanent: false,
-      },
+      // Commented out to allow local /newsletter/[id] detail pages
+      // {
+      //   source: '/newsletter/:path*',
+      //   destination: 'https://app.hecto.io/newsletter/:path*',
+      //   permanent: false,
+      // },
       {
         source: '/account/:path*',
         destination: 'https://app.hecto.io',
