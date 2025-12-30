@@ -1,0 +1,9 @@
+Once onboarding completes though, show faade in of the dashboard items.
+
+Now, lets build a pitch page. 
+
+This is where a user will go if they decide to send a pitch. 
+
+The page should be part of the dashboard, but have three columns - the campaign, a place to write and a column for tips on pitching. 
+
+This is super rough, so don't bother with proper text. Just want the skeleton

@@ -80,3 +80,15 @@ You’ve got the shape of it.
 
 You can spin your other plates knowing this is boxed, ready to execute when you choose.
 When you’re ready, I’ll help you lift it off the shelf and bring it to life.
+
+
+-----
+
+Immediate Focus: 
+Cold outreach is your wedge.
+- ie Cold outreach is killing GTM velocity.
+- ie *COLD OUTREACH IS THE ENEMY. HECTO IS THE ALTERNATIVE.
+
+Speed is a supporting claim.
+Partner matching is the mechanism.
+Distribution access is the ultimate outcome.
