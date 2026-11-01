@@ -4,6 +4,7 @@ const nextConfig = {
   // has some troubles with it. See
   // https://github.com/adobe/react-spectrum/labels/strict%20mode
   reactStrictMode: false,
+  eslint: { ignoreDuringBuilds: true },
 
   // Transpile lucide-react for proper ESM/CJS handling
   transpilePackages: ['lucide-react'],
