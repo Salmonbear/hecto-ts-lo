@@ -13,6 +13,12 @@ export const PLASMIC = initPlasmicLoader({
   // project, allowing you to see your designs without publishing.  Please
   // only use this for development, as this is significantly slower.
   preview: false,
+
+  // Cloudflare Workers: use the runtime's native fetch (not the node-fetch shim)
+  // and let it follow redirects itself (Location header isn't readable with
+  // redirect: "manual" via the shim).
+  nativeFetch: true,
+  manualRedirect: false,
 });
 
 // You can register any code components that you want to use here; see
